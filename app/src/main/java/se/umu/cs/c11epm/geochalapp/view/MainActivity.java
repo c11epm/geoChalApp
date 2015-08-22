@@ -1,17 +1,23 @@
 package se.umu.cs.c11epm.geochalapp.view;
 
+import android.content.Context;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import se.umu.cs.c11epm.geochalapp.R;
+import se.umu.cs.c11epm.geochalapp.model.position.GPSLocator;
 
 public class MainActivity extends AppCompatActivity {
     private ActionBar actionBar;
+    private LocationListener mLocationListener;
+    private LocationManager mLocationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,18 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
 
+        setupGPS();
+    }
+
+    public GPSLocator getGPS() {
+        return (GPSLocator) mLocationListener;
+    }
+
+    public void setupGPS() {
+        mLocationManager = (LocationManager)
+                getSystemService(Context.LOCATION_SERVICE);
+        mLocationListener = new GPSLocator();
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 2, mLocationListener);
     }
 
     @Override
@@ -58,3 +76,5 @@ public class MainActivity extends AppCompatActivity {
         return new MainFragment();
     }
 }
+
+
