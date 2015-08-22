@@ -33,7 +33,7 @@ public class GetUserTask extends BaseTask {
     protected JSONObject doInBackground(String... params) {
         URL url = null;
         try {
-            url = new URL("http://geochal-1007.appspot.com/user/y" + params[0]);
+            url = new URL("http://geochal-1007.appspot.com/user/" + params[0]);
         } catch (MalformedURLException e) {
             return new JSONObject();
         }
