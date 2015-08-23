@@ -7,45 +7,69 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by emil on 2015-08-22.
+ * Created by emil on 2015-08-23.
+ * Params[0] = json with new user content.
  */
-public class GetUserTask extends BaseTask {
-    private Context context;
+public class HttpPostRequestTask extends BaseTask {
+
     private String action;
+    private Context context;
 
-    public static String USER_RESPONSE = "USER_RESPONSE";
+    public static String CREATE_USER_RESPONSE = "CREATE_USER_RESPONSE";
 
-    public GetUserTask(Context context, String action) {
+    public HttpPostRequestTask(Context context, String action) {
         this.context = context;
         this.action = action;
     }
 
+    @Override
+    protected void onPostExecute(JSONObject s) {
+        Intent intent = new Intent(action);
+        intent.putExtra(CREATE_USER_RESPONSE, s.toString());
 
+        context.sendBroadcast(intent);
+    }
+
+    /**
+     *
+     * @param params [0] holds the URI to connect to. [1] holds the JSON body to send.
+     * @return JSON response
+     */
     @Override
     protected JSONObject doInBackground(String... params) {
         URL url = null;
+        String baseURL = "http://geochal-1007.appspot.com/";
         try {
-            url = new URL("http://geochal-1007.appspot.com/user/" + params[0]);
+            url = new URL(baseURL + params[0]);
         } catch (MalformedURLException e) {
             return new JSONObject();
         }
         int statusCode = 0;
         JSONObject json = null;
         try {
+            byte[] bytes = params[1].getBytes("UTF-8");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
+            connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
             //connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("Content-Length", "" + bytes.length);
+
+            OutputStream os = new DataOutputStream(connection.getOutputStream());
+            os.write(bytes);
+            os.close();
 
             InputStream is = new BufferedInputStream(connection.getInputStream());
+
 
             statusCode = connection.getResponseCode();
             //Success (HttpStatus == 200)
@@ -67,13 +91,5 @@ public class GetUserTask extends BaseTask {
             e.printStackTrace();
         }
         return json;
-    }
-
-    @Override
-    protected void onPostExecute(JSONObject s) {
-        Intent intent = new Intent(action);
-        intent.putExtra(USER_RESPONSE, s.toString());
-
-        context.sendBroadcast(intent);
     }
 }

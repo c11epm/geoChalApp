@@ -27,12 +27,12 @@ public class MainActivity extends AppCompatActivity {
         //actionBar = getSupportActionBar();
 
         FragmentManager manager = getSupportFragmentManager();
-        Fragment fragment = manager.findFragmentById(R.id.main);
+        Fragment fragment = manager.findFragmentById(R.id.mainActivity);
 
         if (fragment == null) {
             fragment = createFragment();
             manager.beginTransaction()
-                    .add(R.id.main, fragment)
+                    .add(R.id.mainActivity, fragment)
                     .commit();
         }
 
