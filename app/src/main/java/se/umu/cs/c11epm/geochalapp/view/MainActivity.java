@@ -1,6 +1,7 @@
 package se.umu.cs.c11epm.geochalapp.view;
 
 import android.content.Context;
+import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -36,18 +38,42 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
 
-        setupGPS();
+        startGPS();
     }
 
-    public GPSLocator getGPS() {
-        return (GPSLocator) mLocationListener;
+    @Override
+    protected void onPause() {
+        stopGPS();
+        super.onPause();
+
+        Log.d("MAIN", "ON PAUSE!!!!!");
     }
 
-    public void setupGPS() {
+
+
+    @Override
+    protected void onResume() {
+        startGPS();
+        super.onResume();
+
+        Log.d("MAIN", "ON RESUME!!!!");
+    }
+
+    public Location getPosition() {
+        return ((GPSLocator)mLocationListener).getPosition();
+    }
+
+    private void startGPS() {
         mLocationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
         mLocationListener = new GPSLocator();
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 2, mLocationListener);
+    }
+
+    private void stopGPS() {
+        mLocationManager.removeUpdates(mLocationListener);
+        mLocationManager = null;
+        mLocationListener = null;
     }
 
     @Override
