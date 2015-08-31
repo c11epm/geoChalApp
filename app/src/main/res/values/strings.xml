@@ -4,6 +4,16 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Login fragment-->
+    <string name="login_welcome">Welcome to GeoChal</string>
+    <string name="create_user_button">Create User</string>
+    <string name="login_button">Login</string>
+    <string name="error_login">Incorrect username or password</string>
+    <string name="error_create">User already registered</string>
+    <string name="create_user_success">User created successfully</string>
 </resources>

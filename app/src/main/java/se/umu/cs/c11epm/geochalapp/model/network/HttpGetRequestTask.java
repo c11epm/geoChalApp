@@ -15,28 +15,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import se.umu.cs.c11epm.geochalapp.view.MainActivity;
+
 /**
  * Created by emil on 2015-08-23.
  */
 public class HttpGetRequestTask extends BaseTask {
 
-    private String action;
-    private Context context;
-
-    public static String CREATE_USER_RESPONSE = "HTTP_RESPONSE";
-
-    public HttpGetRequestTask(Context context, String action) {
-        this.context = context;
-        this.action = action;
+    public HttpGetRequestTask() {
     }
-
-    @Override
-    protected void onPostExecute(JSONObject s) {
-        Intent intent = new Intent(action);
-        intent.putExtra(CREATE_USER_RESPONSE, s.toString());
-        context.sendBroadcast(intent);
-    }
-
 
     /**
      * USAGE:   params[0] URI ex. /user/id
@@ -65,9 +52,11 @@ public class HttpGetRequestTask extends BaseTask {
             InputStream is = new BufferedInputStream(connection.getInputStream());
 
             statusCode = connection.getResponseCode();
+
             //Success (HttpStatus == 200)
             if(statusCode == 200) {
                 json = parseData(getResponse(is));
+
             }
             else {
                 json = new JSONObject(getResponse(is));
@@ -75,6 +64,10 @@ public class HttpGetRequestTask extends BaseTask {
 
             if(is != null) {
                 is.close();
+            }
+
+            if (!json.has("status")) {
+                json.put("status", statusCode);
             }
 
 

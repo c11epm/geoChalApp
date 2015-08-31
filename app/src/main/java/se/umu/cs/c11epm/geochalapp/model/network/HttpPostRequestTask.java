@@ -12,9 +12,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Created by emil on 2015-08-23.
@@ -22,22 +24,7 @@ import java.net.URL;
  */
 public class HttpPostRequestTask extends BaseTask {
 
-    private String action;
-    private Context context;
-
-    public static String CREATE_USER_RESPONSE = "CREATE_USER_RESPONSE";
-
-    public HttpPostRequestTask(Context context, String action) {
-        this.context = context;
-        this.action = action;
-    }
-
-    @Override
-    protected void onPostExecute(JSONObject s) {
-        Intent intent = new Intent(action);
-        intent.putExtra(CREATE_USER_RESPONSE, s.toString());
-
-        context.sendBroadcast(intent);
+    public HttpPostRequestTask() {
     }
 
     /**
@@ -47,13 +34,15 @@ public class HttpPostRequestTask extends BaseTask {
      */
     @Override
     protected JSONObject doInBackground(String... params) {
+        String urlString = null;
+        String baseURL = "http://geochal-1007.appspot.com";
         URL url = null;
-        String baseURL = "http://geochal-1007.appspot.com/";
         try {
             url = new URL(baseURL + params[0]);
         } catch (MalformedURLException e) {
-            return new JSONObject();
+            e.printStackTrace();
         }
+
         int statusCode = 0;
         JSONObject json = null;
         try {
@@ -68,10 +57,9 @@ public class HttpPostRequestTask extends BaseTask {
             os.write(bytes);
             os.close();
 
+            statusCode = connection.getResponseCode();
             InputStream is = new BufferedInputStream(connection.getInputStream());
 
-
-            statusCode = connection.getResponseCode();
             //Success (HttpStatus == 200)
             if(statusCode == 200) {
                 json = parseData(getResponse(is));
@@ -84,8 +72,13 @@ public class HttpPostRequestTask extends BaseTask {
                 is.close();
             }
 
+            if (!json.has("status")) {
+                json.put("status", statusCode);
+            }
+
 
         } catch (JSONException e) {
+            //Status
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

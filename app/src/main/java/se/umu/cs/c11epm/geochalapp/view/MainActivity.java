@@ -7,26 +7,78 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import se.umu.cs.c11epm.geochalapp.R;
+import se.umu.cs.c11epm.geochalapp.model.UserInfo;
 import se.umu.cs.c11epm.geochalapp.model.position.GPSLocator;
 
 public class MainActivity extends AppCompatActivity {
-    private ActionBar actionBar;
     private LocationListener mLocationListener;
     private LocationManager mLocationManager;
+
+    private UserInfo userInfo;
+
+    public enum views {
+        LOGIN, MAIN, CHALLENGE;
+    }
+
+    public void changeView(views view) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        int id = getID(view);
+        Fragment f = getSupportFragmentManager().findFragmentById(id);
+
+        if(f != null) {
+            ft.replace(R.id.mainActivity, f);
+            ft.addToBackStack(null);
+
+            // Commit the transaction
+            ft.commit();
+        }
+        else {
+            if (view.equals(views.LOGIN)) {
+                f = new LoginFragment();
+            } else if(view.equals(views.MAIN)) {
+                f = new MainFragment();
+            }
+
+            ft.replace(R.id.mainActivity,f);
+            ft.addToBackStack(null);
+
+            ft.commit();
+        }
+    }
+
+    public void setUser(UserInfo user) {
+        this.userInfo = user;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    private int getID(views view) {
+        if(view.equals(views.LOGIN)) {
+            return R.id.loginFragment;
+        } else if(view.equals(views.MAIN)) {
+            return R.id.mainFragment;
+        } else if (view.equals(views.CHALLENGE)) {
+            //TODO Implement
+            return 0;
+        } else {
+            throw new RuntimeException("This should not be possible");
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //actionBar = getSupportActionBar();
 
         FragmentManager manager = getSupportFragmentManager();
         Fragment fragment = manager.findFragmentById(R.id.mainActivity);
@@ -98,8 +150,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+
     private Fragment createFragment() {
-        return new MainFragment();
+        return new LoginFragment();
     }
 }
 
