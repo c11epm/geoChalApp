@@ -78,7 +78,7 @@ public class LoginFragment extends Fragment {
                 new HttpPostRequestTask(){
                     @Override
                     protected void onPostExecute(JSONObject jsonObject) {
-                        Log.d("MISTER", request)
+                        Log.d("MISTER", request);
                         Log.d("HELLO", jsonObject.toString());
                         try {
                             if(jsonObject.get("status").equals(200)) {
