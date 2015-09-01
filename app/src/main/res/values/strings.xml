@@ -16,4 +16,9 @@
     <string name="error_login">Incorrect username or password</string>
     <string name="error_create">User already registered</string>
     <string name="create_user_success">User created successfully</string>
+
+    <!-- Create challenge -->
+    <string name="create_challenge_button">Create challenge</string>
+    <string name="location_error">Could not find location, try again</string>
+    <string name="challenge_user_name">Enter the username to challenge</string>
 </resources>
