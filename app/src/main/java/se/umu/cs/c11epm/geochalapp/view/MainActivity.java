@@ -23,8 +23,16 @@ public class MainActivity extends AppCompatActivity {
 
     private UserInfo userInfo;
 
+    public void logout() {
+        stopGPS();
+        userInfo = null;
+    }
+
     public enum views {
-        LOGIN, MAIN, CHALLENGE;
+        LOGIN, MAIN, CHALLENGELIST, CREATECHALLENGE
+    }
+    public enum list {
+        ME, OTHER
     }
 
     public void changeView(views view) {
@@ -44,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
                 f = new LoginFragment();
             } else if(view.equals(views.MAIN)) {
                 f = new MainFragment();
+            } else if(view.equals(views.CHALLENGELIST)) {
+                f = new ChallengeListFragment();
+            } else if(view.equals(views.CREATECHALLENGE)) {
+                f = new CreateChallengeFragment();
             }
 
             ft.replace(R.id.mainActivity,f);
@@ -66,9 +78,10 @@ public class MainActivity extends AppCompatActivity {
             return R.id.loginFragment;
         } else if(view.equals(views.MAIN)) {
             return R.id.mainFragment;
-        } else if (view.equals(views.CHALLENGE)) {
-            //TODO Implement
-            return 0;
+        } else if (view.equals(views.CHALLENGELIST)) {
+            return R.id.challengeListFragment;
+        } else if (view.equals(views.CREATECHALLENGE)) {
+            return R.id.createChallengeFragment;
         } else {
             throw new RuntimeException("This should not be possible");
         }
@@ -90,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
 
-        startGPS();
+        //startGPS();
     }
 
     @Override
@@ -111,18 +124,18 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MAIN", "ON RESUME!!!!");
     }
 
-    public Location getPosition() {
+    protected Location getPosition() {
         return ((GPSLocator)mLocationListener).getPosition();
     }
 
-    private void startGPS() {
+    protected void startGPS() {
         mLocationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
         mLocationListener = new GPSLocator();
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 2, mLocationListener);
     }
 
-    private void stopGPS() {
+    protected void stopGPS() {
         mLocationManager.removeUpdates(mLocationListener);
         mLocationManager = null;
         mLocationListener = null;

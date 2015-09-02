@@ -1,16 +1,8 @@
 package se.umu.cs.c11epm.geochalapp.model.position;
 
-import android.app.Service;
-import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 
 /**
  * Created by emil on 2015-08-22.

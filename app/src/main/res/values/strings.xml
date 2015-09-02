@@ -4,10 +4,15 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <!-- General strings -->
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="logout">logout</string>
+    <string name="create_challenge">Create challenge</string>
+    <string name="created_challenges">Created challenges</string>
+    <string name="challenged_list">Challenged list</string>
 
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Login fragment-->
     <string name="login_welcome">Welcome to GeoChal</string>
@@ -21,4 +26,7 @@
     <string name="create_challenge_button">Create challenge</string>
     <string name="location_error">Could not find location, try again</string>
     <string name="challenge_user_name">Enter the username to challenge</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

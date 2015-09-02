@@ -49,16 +49,18 @@ public class HttpGetRequestTask extends BaseTask {
             connection.setRequestProperty("Content-Type", "application/json");
             //connection.setRequestProperty("Accept", "application/json");
 
-            InputStream is = new BufferedInputStream(connection.getInputStream());
+            InputStream is;
 
             statusCode = connection.getResponseCode();
 
             //Success (HttpStatus == 200)
             if(statusCode == 200) {
+                is = new BufferedInputStream(connection.getInputStream());
                 json = parseData(getResponse(is));
 
             }
             else {
+                is = new BufferedInputStream(connection.getErrorStream());
                 json = new JSONObject(getResponse(is));
             }
 

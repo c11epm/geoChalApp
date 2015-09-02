@@ -78,22 +78,16 @@ public class LoginFragment extends Fragment {
                 new HttpPostRequestTask(){
                     @Override
                     protected void onPostExecute(JSONObject jsonObject) {
-                        Log.d("MISTER", request);
-                        Log.d("HELLO", jsonObject.toString());
                         try {
                             if(jsonObject.get("status").equals(200)) {
                                 //OK, then return to sign in (Main)
-                                Log.d("IF", "STATUS 200");
                                 if(type.equals(buttonType.LOGIN)) {
-                                    Log.d("IF", "LOGIN");
                                     activity.setUser(new UserInfo(uname, jsonObject.get("token").toString()));
                                     activity.changeView(MainActivity.views.MAIN);
                                 } else {
-                                    Log.d("ELSE", "CREATE");
                                     Toast.makeText(activity, R.string.create_user_success, Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Log.d("ELSE", "NOT 200");
                                 int errorString = type == buttonType.LOGIN ? R.string.error_login : R.string.error_create;
                                 Toast.makeText(activity, errorString, Toast.LENGTH_SHORT).show();
                             }

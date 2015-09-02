@@ -1,10 +1,10 @@
 package se.umu.cs.c11epm.geochalapp.view;
 
 
-import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +18,10 @@ import org.json.JSONObject;
 import se.umu.cs.c11epm.geochalapp.R;
 import se.umu.cs.c11epm.geochalapp.model.network.HttpPostRequestTask;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ChallengeFragment extends Fragment {
+public class CreateChallengeFragment extends Fragment {
     private MainActivity activity;
 
-    public ChallengeFragment() {
+    public CreateChallengeFragment() {
         // Required empty public constructor
     }
 
@@ -33,11 +30,12 @@ public class ChallengeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_challenge, container, false);
+        View v = inflater.inflate(R.layout.fragment_create_challenge, container, false);
 
         activity = (MainActivity) getActivity();
+        final EditText challengeUser = (EditText) v.findViewById(R.id.challengeUser);
 
-        Button createChallenge = (Button) v.findViewById(R.id.createChallengeButton);
+        Button createChallenge = (Button) v.findViewById(R.id.mainCreateChallengeButton);
         createChallenge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,12 +45,12 @@ public class ChallengeFragment extends Fragment {
                     return;
                 }
 
-                EditText challengeUser = (EditText) v.findViewById(R.id.challengeUser);
 
+                Log.d("ON CLICK", challengeUser.getText().toString());
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("creatorUser", activity.getUserInfo().getUsername());
-                    jsonObject.put("challengedUser", challengeUser);
+                    jsonObject.put("challengedUser", challengeUser.getText().toString());
                     jsonObject.put("longitude", loc.getLongitude());
                     jsonObject.put("latitude", loc.getLatitude());
                 } catch (JSONException e) {

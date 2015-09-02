@@ -2,6 +2,7 @@ package se.umu.cs.c11epm.geochalapp.model.network;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,8 +38,9 @@ public class HttpPostRequestTask extends BaseTask {
         String urlString = null;
         String baseURL = "http://geochal-1007.appspot.com";
         URL url = null;
+        urlString = baseURL + params[0];
         try {
-            url = new URL(baseURL + params[0]);
+            url = new URL(urlString);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -53,26 +55,35 @@ public class HttpPostRequestTask extends BaseTask {
             //connection.setRequestProperty("Accept", "application/json");
             connection.setRequestProperty("Content-Length", "" + bytes.length);
 
+            Log.d("HTTPPOST", "SEND TO: " + urlString + "\nDATA: " + params[1]);
+
             OutputStream os = new DataOutputStream(connection.getOutputStream());
             os.write(bytes);
             os.close();
 
             statusCode = connection.getResponseCode();
-            InputStream is = new BufferedInputStream(connection.getInputStream());
+            Log.d("RESPONSE CODE", statusCode + "");
+            InputStream is;
 
             //Success (HttpStatus == 200)
             if(statusCode == 200) {
+                is = new BufferedInputStream(connection.getInputStream());
                 json = parseData(getResponse(is));
             }
-            else {
+            else if (statusCode == 400) {
+                is = new BufferedInputStream(connection.getErrorStream());
                 json = new JSONObject(getResponse(is));
+            } else {
+                is = new BufferedInputStream(connection.getErrorStream());
+                Log.d("HTTPPOST:::::", "Got some server error. " + statusCode + " " + getResponse(is));
             }
 
             if(is != null) {
                 is.close();
             }
 
-            if (!json.has("status")) {
+
+            if (json != null && !json.has("status")) {
                 json.put("status", statusCode);
             }
 

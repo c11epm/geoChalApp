@@ -1,6 +1,7 @@
 package se.umu.cs.c11epm.geochalapp.model.network;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,8 +27,9 @@ public abstract class BaseTask extends AsyncTask<String, Void, JSONObject> {
         }
 
         is.close();
-
-        return builder.toString();
+        String toReturn = builder.toString();
+        Log.d("RESPONSE:::::", toReturn);
+        return toReturn;
 
     }
 
