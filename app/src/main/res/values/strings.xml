@@ -27,6 +27,12 @@
     <string name="location_error">Could not find location, try again</string>
     <string name="challenge_user_name">Enter the username to challenge</string>
 
+    <!-- Challenge list item -->
+    <string name="challenge_item_distance">Distance to challenge:</string>
+    <string name="challenge_item_challenged">Challenged by:</string>
+    <string name="challenge_item_challenged_other">Challenged user:</string>
+    <string name="challenge_item_position">Position:</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

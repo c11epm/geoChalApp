@@ -74,7 +74,6 @@ public class LoginFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
                 new HttpPostRequestTask(){
                     @Override
                     protected void onPostExecute(JSONObject jsonObject) {
@@ -82,8 +81,10 @@ public class LoginFragment extends Fragment {
                             if(jsonObject.get("status").equals(200)) {
                                 //OK, then return to sign in (Main)
                                 if(type.equals(buttonType.LOGIN)) {
-                                    activity.setUser(new UserInfo(uname, jsonObject.get("token").toString()));
-                                    activity.changeView(MainActivity.views.MAIN);
+                                    String token = jsonObject.get("token").toString();
+
+                                    activity.setUser(new UserInfo(uname, token));
+                                    activity.changeView(MainActivity.views.MAIN, MainActivity.list.NONE);
                                 } else {
                                     Toast.makeText(activity, R.string.create_user_success, Toast.LENGTH_SHORT).show();
                                 }

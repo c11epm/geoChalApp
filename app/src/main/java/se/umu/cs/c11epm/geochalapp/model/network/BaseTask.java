@@ -28,7 +28,6 @@ public abstract class BaseTask extends AsyncTask<String, Void, JSONObject> {
 
         is.close();
         String toReturn = builder.toString();
-        Log.d("RESPONSE:::::", toReturn);
         return toReturn;
 
     }

@@ -5,6 +5,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -32,15 +33,18 @@ public class MainActivity extends AppCompatActivity {
         LOGIN, MAIN, CHALLENGELIST, CREATECHALLENGE
     }
     public enum list {
-        ME, OTHER
+        ME, OTHER, NONE
     }
 
-    public void changeView(views view) {
+    public void changeView(views view, list type) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         int id = getID(view);
         Fragment f = getSupportFragmentManager().findFragmentById(id);
 
         if(f != null) {
+            if(!type.equals(list.NONE)) {
+                ((ChallengeListFragment)f).setType(type);
+            }
             ft.replace(R.id.mainActivity, f);
             ft.addToBackStack(null);
 
@@ -54,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
                 f = new MainFragment();
             } else if(view.equals(views.CHALLENGELIST)) {
                 f = new ChallengeListFragment();
+                if(type.equals(list.ME)) {
+                    ((ChallengeListFragment)f).setType(type);
+                } else {
+                    ((ChallengeListFragment)f).setType(type);
+                }
+
             } else if(view.equals(views.CREATECHALLENGE)) {
                 f = new CreateChallengeFragment();
             }
@@ -136,8 +146,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void stopGPS() {
-        mLocationManager.removeUpdates(mLocationListener);
-        mLocationManager = null;
+        if(mLocationManager != null) {
+            mLocationManager.removeUpdates(mLocationListener);
+            mLocationManager = null;
+        }
         mLocationListener = null;
     }
 

@@ -2,11 +2,12 @@ package se.umu.cs.c11epm.geochalapp.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+
 
 
 import se.umu.cs.c11epm.geochalapp.R;
@@ -29,13 +30,14 @@ public class MainFragment extends Fragment {
         activity = (MainActivity) getActivity();
         activity.startGPS();
         try {
-            activity.getSupportActionBar().setTitle("GeoChal OLOL");
+            userInfo = activity.getUserInfo();
+
+            ActionBar ab = activity.getSupportActionBar();
+
+            ab.setTitle("GeoChal - " + userInfo.getUsername());
         } catch (NullPointerException e) {
             System.err.println("Hello, could not set title in action bar.");
         }
-        TextView t = (TextView) v.findViewById(R.id.mainText);
-        userInfo = activity.getUserInfo();
-        t.setText("Hello misterinos!" + userInfo.getUsername() + " " + userInfo.getToken());
 
         Button challengeMeList = (Button) v.findViewById(R.id.mainChallengedMeButton);
         Button challengeOtherList = (Button) v.findViewById(R.id.mainChallengedOtherButton);
@@ -45,21 +47,21 @@ public class MainFragment extends Fragment {
         challengeMeList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.changeView(MainActivity.views.CHALLENGELIST);
+                activity.changeView(MainActivity.views.CHALLENGELIST, MainActivity.list.ME);
             }
         });
 
         challengeOtherList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.changeView(MainActivity.views.CHALLENGELIST);
+                activity.changeView(MainActivity.views.CHALLENGELIST, MainActivity.list.OTHER);
             }
         });
 
         createChallenge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.changeView(MainActivity.views.CREATECHALLENGE);
+                activity.changeView(MainActivity.views.CREATECHALLENGE, MainActivity.list.NONE);
             }
         });
 
@@ -67,7 +69,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 activity.logout();
-                activity.changeView(MainActivity.views.LOGIN);
+                activity.changeView(MainActivity.views.LOGIN, MainActivity.list.NONE);
             }
         });
 

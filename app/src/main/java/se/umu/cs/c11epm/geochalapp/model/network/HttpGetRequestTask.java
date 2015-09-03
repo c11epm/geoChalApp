@@ -2,6 +2,7 @@ package se.umu.cs.c11epm.geochalapp.model.network;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +49,7 @@ public class HttpGetRequestTask extends BaseTask {
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-Type", "application/json");
             //connection.setRequestProperty("Accept", "application/json");
-
+            Log.d("SENT TO:::", baseURL+params[0]);
             InputStream is;
 
             statusCode = connection.getResponseCode();
@@ -71,7 +72,7 @@ public class HttpGetRequestTask extends BaseTask {
             if (!json.has("status")) {
                 json.put("status", statusCode);
             }
-
+            Log.d("RESPONSE::::", json.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
