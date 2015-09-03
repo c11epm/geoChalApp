@@ -1,29 +1,34 @@
 package se.umu.cs.c11epm.geochalapp.view;
 
 import android.content.Context;
-import android.database.DataSetObserver;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import se.umu.cs.c11epm.geochalapp.R;
 import se.umu.cs.c11epm.geochalapp.model.Challenge;
+import se.umu.cs.c11epm.geochalapp.model.Haversine;
+import se.umu.cs.c11epm.geochalapp.model.Position;
 import se.umu.cs.c11epm.geochalapp.model.network.HttpGetRequestTask;
 
 public class ChallengeListFragment extends Fragment {
@@ -38,10 +43,6 @@ public class ChallengeListFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public void setChallenges(List<Challenge> challenges) {
-        this.challenges = challenges;
-    }
-
     public void setType(MainActivity.list type) {
         this.type = type;
     }
@@ -51,17 +52,50 @@ public class ChallengeListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_challenge_list, container, false);
+
         activity = (MainActivity) getActivity();
         challengeList = (ListView) v.findViewById(R.id.challengeList);
-
         fillList();
-        challengeList.setAdapter(new ChallengeMeAdapter(activity, R.layout.challenge_list_item, challenges));
 
-        /*if(type.equals(MainActivity.list.ME)) {
-            //TODO set item clicker
+
+
+
+        if(type.equals(MainActivity.list.ME)) {
+            challengeList.setAdapter(new ChallengeMeAdapter(activity, R.layout.challenge_list_item, challenges));
+            challengeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Challenge c = (Challenge) challengeList.getAdapter().getItem(position);
+
+                    FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+                    ChallengedMeItemFragment cmf = new ChallengedMeItemFragment();
+                    cmf.setChallenge(c);
+
+                    ft.replace(R.id.mainActivity, cmf);
+                    ft.addToBackStack(null);
+                    ft.commit();
+
+                }
+            });
         } else {
-            //TODO set list item clicker to change fragment view.
-        }*/
+            challengeList.setAdapter(new ChallengeOtherAdapter(activity, R.layout.challenge_list_item, challenges));
+            challengeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Challenge c = (Challenge) challengeList.getAdapter().getItem(position);
+
+                    FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+                    ChallengedMeItemFragment cmf = new ChallengedMeItemFragment();
+                    cmf.setChallenge(c);
+
+                    ft.replace(R.id.mainActivity, cmf);
+                    ft.addToBackStack(null);
+                    ft.commit();
+
+                }
+            });
+        }
+
 
         return v;
     }
@@ -101,8 +135,10 @@ public class ChallengeListFragment extends Fragment {
                     e.printStackTrace();
                     Log.d("CHALLENGE:JSON", e.getMessage());
                 }
-                ArrayAdapter<Challenge> adapter = (ArrayAdapter<Challenge>)challengeList.getAdapter();
-                adapter.notifyDataSetChanged();
+
+                ListAdapter adapter = challengeList.getAdapter();
+                ((ArrayAdapter<Challenge>)adapter).notifyDataSetChanged();
+
             }
         }.execute(path);
     }
@@ -123,14 +159,23 @@ public class ChallengeListFragment extends Fragment {
 
             TextView challengedBy = (TextView) convertView.findViewById(R.id.challenge_item_user);
             TextView distance = (TextView) convertView.findViewById(R.id.challenge_item_distance);
-            ImageButton icon = (ImageButton) convertView.findViewById(R.id.challenge_item_imagebutton);
+            ImageView icon = (ImageView) convertView.findViewById(R.id.challenge_item_icon);
 
             challengedBy.setText(getString(R.string.challenge_item_challenged) + " " + c.getCreatorUser());
-            icon.setImageResource(R.drawable.notdone);
-            distance.setText(getString(R.string.challenge_item_distance) + " ");
+            icon.setImageResource(c.isFinished() ? R.drawable.done : R.drawable.notdone);
+            if(activity.getGPS().gotPosition()) {
+                Position myPos = new Position();
+                Location loc = activity.getPosition();
+                myPos.setLatitude(loc.getLatitude());
+                myPos.setLongitude(loc.getLongitude());
+
+                distance.setText(getString(R.string.challenge_item_distance) + " " + Haversine.haversine(c.getPosition(), myPos) + "km");
+            } else {
+                distance.setText(getString(R.string.location_error));
+            }
+
 
             return convertView;
-
         }
     }
 
@@ -150,10 +195,10 @@ public class ChallengeListFragment extends Fragment {
 
             TextView challengedBy = (TextView) convertView.findViewById(R.id.challenge_item_user);
             TextView distance = (TextView) convertView.findViewById(R.id.challenge_item_distance);
-            ImageButton icon = (ImageButton) convertView.findViewById(R.id.challenge_item_imagebutton);
+            ImageView icon = (ImageView) convertView.findViewById(R.id.challenge_item_icon);
 
             challengedBy.setText(getString(R.string.challenge_item_challenged_other) + " " + c.getChallengedUser());
-            //icon.setImageResource(R.drawable.notdone);
+            icon.setImageResource(c.isFinished() ? R.drawable.done : R.drawable.notdone);
             distance.setText(getString(R.string.challenge_item_position) +
                     " lat:" + c.getLatitude() + " lon:" + c.getLongitude());
 

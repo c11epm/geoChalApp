@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="4dp">
 
 
     <TextView
@@ -12,21 +13,18 @@
         android:text="Challenged by: Username"
         android:id="@+id/challenge_item_user"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/challenge_item_imagebutton"
-        android:layout_toEndOf="@+id/challenge_item_imagebutton" />
+        android:layout_alignLeft="@+id/challenge_item_distance"
+        android:layout_alignStart="@+id/challenge_item_distance" />
 
-    <ImageButton
+    <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:id="@+id/challenge_item_imagebutton"
+        android:id="@+id/challenge_item_icon"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:src="@drawable/notdone"
-        android:background="@null"
-        android:scaleType="fitXY"
-        android:layout_alignBottom="@+id/challenge_item_distance"
-        android:padding="4dp"/>
+        android:padding="4dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,6 +32,7 @@
         android:text="Approximate distance to challenge: 6km"
         android:id="@+id/challenge_item_distance"
         android:layout_below="@+id/challenge_item_user"
-        android:layout_toRightOf="@+id/challenge_item_imagebutton"
-        android:layout_toEndOf="@+id/challenge_item_imagebutton" />
+        android:layout_toRightOf="@+id/challenge_item_icon"
+        android:layout_toEndOf="@+id/challenge_item_icon" />
+
 </RelativeLayout>

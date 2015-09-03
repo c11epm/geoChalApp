@@ -1,0 +1,37 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="se.umu.cs.c11epm.geochalapp.view.ChallengedOtherItemFragment"
+    android:id="@+id/challenged_other_fragment"
+    android:padding="4dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/challenge_other_username"
+        android:text="Challenged user:"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Token:"
+        android:id="@+id/challenge_other_token"
+        android:layout_below="@+id/challenge_other_username" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Challenge longitude:"
+        android:id="@+id/challenge_other_long"
+        android:layout_below="@+id/challenge_other_token" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Challenge latitude:"
+        android:id="@+id/challenge_other_lat"
+        android:layout_below="@+id/challenge_other_long" />
+
+</RelativeLayout>

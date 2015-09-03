@@ -47,14 +47,14 @@ public class MainFragment extends Fragment {
         challengeMeList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.changeView(MainActivity.views.CHALLENGELIST, MainActivity.list.ME);
+                activity.changeView(MainActivity.views.CHALLENGELIST, MainActivity.list.OTHER);
             }
         });
 
         challengeOtherList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.changeView(MainActivity.views.CHALLENGELIST, MainActivity.list.OTHER);
+                activity.changeView(MainActivity.views.CHALLENGELIST, MainActivity.list.ME);
             }
         });
 

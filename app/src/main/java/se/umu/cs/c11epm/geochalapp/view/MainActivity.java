@@ -138,6 +138,10 @@ public class MainActivity extends AppCompatActivity {
         return ((GPSLocator)mLocationListener).getPosition();
     }
 
+    protected GPSLocator getGPS() {
+        return (GPSLocator) mLocationListener;
+    }
+
     protected void startGPS() {
         mLocationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);

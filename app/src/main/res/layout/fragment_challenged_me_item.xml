@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="se.umu.cs.c11epm.geochalapp.view.ChallengedMeItemFragment"
+    android:id="@+id/challenged_me_fragment"
+    android:padding="4dp">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/challenge_item_challenged_by"
+        android:text="Challenged by:"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Token:"
+        android:id="@+id/challenge_item_token"
+        android:layout_below="@+id/challenge_item_challenged_by" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finish challenge"
+        android:id="@+id/finish_challenge"
+        android:layout_below="@+id/my_lat"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Challenge longitude:"
+        android:id="@+id/challenge_long"
+        android:layout_below="@+id/challenge_item_token" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Challenge latitude:"
+        android:id="@+id/challenge_lat"
+        android:layout_below="@+id/challenge_long" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update my position"
+        android:id="@+id/update_my_pos"
+        android:layout_alignTop="@+id/finish_challenge"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My longitude:"
+        android:id="@+id/my_long"
+        android:layout_below="@+id/challenge_lat" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My latitude:"
+        android:id="@+id/my_lat"
+        android:layout_below="@+id/my_long" />
+</RelativeLayout>

@@ -72,7 +72,13 @@ public class HttpPostRequestTask extends BaseTask {
             }
             else if (statusCode == 400) {
                 is = new BufferedInputStream(connection.getErrorStream());
-                json = new JSONObject(getResponse(is));
+                String resp = getResponse(is);
+                if(!(resp.length() == 0)) {
+                    json = new JSONObject(getResponse(is));
+                } else {
+                    json = new JSONObject();
+                }
+
             } else {
                 is = new BufferedInputStream(connection.getErrorStream());
                 Log.d("HTTPPOST:::::", "Got some server error. " + statusCode + " " + getResponse(is));

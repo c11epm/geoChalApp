@@ -8,11 +8,10 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
-    <string name="logout">logout</string>
+    <string name="logout">Logout</string>
     <string name="create_challenge">Create challenge</string>
-    <string name="created_challenges">Created challenges</string>
-    <string name="challenged_list">Challenged list</string>
-
+    <string name="created_challenges">Challenges created by me</string>
+    <string name="challenged_list">My challenges</string>
 
     <!-- Login fragment-->
     <string name="login_welcome">Welcome to GeoChal</string>
@@ -24,7 +23,7 @@
 
     <!-- Create challenge -->
     <string name="create_challenge_button">Create challenge</string>
-    <string name="location_error">Could not find location, try again</string>
+    <string name="location_error">Could not find location, try again in 10 seconds</string>
     <string name="challenge_user_name">Enter the username to challenge</string>
 
     <!-- Challenge list item -->
@@ -32,6 +31,12 @@
     <string name="challenge_item_challenged">Challenged by:</string>
     <string name="challenge_item_challenged_other">Challenged user:</string>
     <string name="challenge_item_position">Position:</string>
+    <string name="challenge_item_id">Token:</string>
+    <string name="challenge_item_long">Challenge longitude:</string>
+    <string name="challenge_item_lat">Challenge latitude:</string>
+
+    <string name="challenge_me_long">My longitude:</string>
+    <string name="challenge_me_lat">My latitude:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
