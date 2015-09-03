@@ -73,10 +73,10 @@ public class HttpPostRequestTask extends BaseTask {
             else if (statusCode == 400) {
                 is = new BufferedInputStream(connection.getErrorStream());
                 String resp = getResponse(is);
-                if(!(resp.length() == 0)) {
-                    json = new JSONObject(getResponse(is));
-                } else {
+                if(resp.length() == 0) {
                     json = new JSONObject();
+                } else {
+                    json = new JSONObject(resp);
                 }
 
             } else {

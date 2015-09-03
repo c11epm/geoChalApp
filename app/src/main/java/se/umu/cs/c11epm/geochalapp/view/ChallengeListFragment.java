@@ -123,6 +123,9 @@ public class ChallengeListFragment extends Fragment {
                             challenge.setID((String) json.get("id"));
                             challenge.setLongitude((Double) json.get("longitude"));
                             challenge.setLatitude((Double) json.get("latitude"));
+                            long k = (int) json.get("finished");
+                            challenge.setFinished(k);
+
 
                             challenges.add(challenge);
                         } catch (JSONException e) {
@@ -169,7 +172,18 @@ public class ChallengeListFragment extends Fragment {
                 myPos.setLatitude(loc.getLatitude());
                 myPos.setLongitude(loc.getLongitude());
 
-                distance.setText(getString(R.string.challenge_item_distance) + " " + Haversine.haversine(c.getPosition(), myPos) + "km");
+                double d = Haversine.haversine(c.getPosition(), myPos);
+
+                String length;
+                if(d < 1) {
+                    d *= 1000;
+                    length = ((int) d) + " m";
+                } else {
+                    d = (int) (d * 100);
+                    d = d / 100;
+                    length = d + " km";
+                }
+                distance.setText(getString(R.string.challenge_item_distance) + " " + length);
             } else {
                 distance.setText(getString(R.string.location_error));
             }
@@ -199,12 +213,30 @@ public class ChallengeListFragment extends Fragment {
 
             challengedBy.setText(getString(R.string.challenge_item_challenged_other) + " " + c.getChallengedUser());
             icon.setImageResource(c.isFinished() ? R.drawable.done : R.drawable.notdone);
-            distance.setText(getString(R.string.challenge_item_position) +
-                    " lat:" + c.getLatitude() + " lon:" + c.getLongitude());
+
+            if(activity.getGPS().gotPosition()) {
+                Position myPos = new Position();
+                Location loc = activity.getPosition();
+                myPos.setLatitude(loc.getLatitude());
+                myPos.setLongitude(loc.getLongitude());
+
+                double d = Haversine.haversine(c.getPosition(), myPos);
+
+                String length;
+                if(d < 1) {
+                    d *= 1000;
+                    length = ((int) d) + " m";
+                } else {
+                    d = (int) (d * 100);
+                    d = d / 100;
+                    length = d + " km";
+                }
+                distance.setText(getString(R.string.challenge_item_distance) + " " + length);
+            } else {
+                distance.setText(getString(R.string.location_error));
+            }
 
             return convertView;
-
         }
     }
-
 }

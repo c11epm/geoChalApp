@@ -51,6 +51,10 @@ public class ChallengedMeItemFragment extends Fragment {
         Button finish = (Button) v.findViewById(R.id.finish_challenge);
         Button update = (Button) v.findViewById(R.id.update_my_pos);
 
+        if(challenge.isFinished()) {
+            finish.setEnabled(false);
+        }
+
         challengedBy.setText(getString(R.string.challenge_item_challenged) + " " + challenge.getCreatorUser());
         token.setText(getString(R.string.challenge_item_id) + " " + challenge.getID());
         chalLong.setText(getString(R.string.challenge_item_long) + " " + challenge.getLongitude());
@@ -79,10 +83,7 @@ public class ChallengedMeItemFragment extends Fragment {
                         @Override
                         protected void onPostExecute(JSONObject jsonObject) {
                             try {
-                                if(jsonObject.get("status").equals(200)) {
-                                    Log.d("FINISHED", "CLEARED!" + jsonObject.get("message").toString());
-                                    Toast.makeText(activity, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show();
-                                }
+                                Toast.makeText(activity, jsonObject.get("message").toString(), Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
