@@ -51,7 +51,8 @@ public class LoginFragment extends Fragment {
         final EditText password = (EditText) v.findViewById(R.id.password);
         Button mCreateUserButton = (Button) v.findViewById(R.id.createUserButton);
         Button mLoginButton = (Button) v.findViewById(R.id.loginButton);
-
+        username.setText("");
+        password.setText("");
         setupButtonListener(username, password, mCreateUserButton, buttonType.CREATE);
         setupButtonListener(username, password, mLoginButton, buttonType.LOGIN);
 
@@ -63,8 +64,13 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
-                inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+                View v2 = getActivity().getCurrentFocus();
+                if(v2 != null) {
+                    InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+                    inputManager.hideSoftInputFromWindow(v2.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+
 
                 final String request = type == buttonType.LOGIN ? "/login" : "/user";
 

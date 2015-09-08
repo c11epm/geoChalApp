@@ -1,6 +1,7 @@
 package se.umu.cs.c11epm.geochalapp.view;
 
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -19,6 +20,8 @@ import java.awt.font.TextAttribute;
 
 import se.umu.cs.c11epm.geochalapp.R;
 import se.umu.cs.c11epm.geochalapp.model.Challenge;
+import se.umu.cs.c11epm.geochalapp.model.Haversine;
+import se.umu.cs.c11epm.geochalapp.model.Position;
 import se.umu.cs.c11epm.geochalapp.model.network.HttpPostRequestTask;
 
 /**
@@ -45,6 +48,7 @@ public class ChallengedMeItemFragment extends Fragment {
         TextView token = (TextView) v.findViewById(R.id.challenge_item_token);
         TextView chalLong = (TextView) v.findViewById(R.id.challenge_long);
         TextView chalLat = (TextView) v.findViewById(R.id.challenge_lat);
+        final TextView challengeDistance = (TextView) v.findViewById(R.id.challenge_me_distance);
         final TextView myLong = (TextView) v.findViewById(R.id.my_long);
         final TextView myLat = (TextView) v.findViewById(R.id.my_lat);
 
@@ -60,9 +64,29 @@ public class ChallengedMeItemFragment extends Fragment {
         chalLong.setText(getString(R.string.challenge_item_long) + " " + challenge.getLongitude());
         chalLat.setText(getString(R.string.challenge_item_lat) + " " + challenge.getLatitude());
 
-        if(activity.getPosition()!= null) {
+        if(activity.getGPS().gotPosition()) {
             myLong.setText(getString(R.string.challenge_me_long) + " " + activity.getPosition().getLongitude() + "");
             myLat.setText(getString(R.string.challenge_me_lat) + " " + activity.getPosition().getLatitude() + "");
+
+            Position myPos = new Position();
+            Location loc = activity.getPosition();
+            myPos.setLatitude(loc.getLatitude());
+            myPos.setLongitude(loc.getLongitude());
+
+            double d = Haversine.haversine(challenge.getPosition(), myPos);
+
+            String length;
+            if(d < 1) {
+                d *= 1000;
+                length = ((int) d) + " m";
+            } else {
+                d = (int) (d * 100);
+                d = d / 100;
+                length = d + " km";
+            }
+            challengeDistance.setText(getString(R.string.challenge_item_distance) + " " + length);
+        } else {
+            challengeDistance.setText(getString(R.string.location_error));
         }
 
         finish.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +126,25 @@ public class ChallengedMeItemFragment extends Fragment {
                 if(activity.getGPS().gotPosition()) {
                     myLong.setText(getString(R.string.challenge_me_long) + " " + activity.getPosition().getLongitude() + "");
                     myLat.setText(getString(R.string.challenge_me_lat) + " " + activity.getPosition().getLatitude() + "");
+
+                    Position myPos = new Position();
+                    Location loc = activity.getPosition();
+                    myPos.setLatitude(loc.getLatitude());
+                    myPos.setLongitude(loc.getLongitude());
+
+                    double d = Haversine.haversine(challenge.getPosition(), myPos);
+
+                    String length;
+                    if(d < 1) {
+                        d *= 1000;
+                        length = ((int) d) + " m";
+                    } else {
+                        d = (int) (d * 100);
+                        d = d / 100;
+                        length = d + " km";
+                    }
+
+                    challengeDistance.setText(getString(R.string.challenge_item_distance) + " " + length);
                 } else {
                     Toast.makeText(activity, getString(R.string.location_error), Toast.LENGTH_SHORT).show();
                 }

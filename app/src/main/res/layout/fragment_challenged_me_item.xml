@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:text="Finish challenge"
         android:id="@+id/finish_challenge"
-        android:layout_below="@+id/my_lat"
+        android:layout_below="@+id/challenge_me_distance"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -65,4 +65,13 @@
         android:text="My latitude:"
         android:id="@+id/my_lat"
         android:layout_below="@+id/my_long" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Distance:"
+        android:id="@+id/challenge_me_distance"
+        android:layout_below="@+id/my_lat"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

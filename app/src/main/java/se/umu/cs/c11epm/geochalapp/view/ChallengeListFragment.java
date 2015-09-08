@@ -85,10 +85,10 @@ public class ChallengeListFragment extends Fragment {
                     Challenge c = (Challenge) challengeList.getAdapter().getItem(position);
 
                     FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-                    ChallengedMeItemFragment cmf = new ChallengedMeItemFragment();
-                    cmf.setChallenge(c);
+                    ChallengedOtherItemFragment cof = new ChallengedOtherItemFragment();
+                    cof.setChallenge(c);
 
-                    ft.replace(R.id.mainActivity, cmf);
+                    ft.replace(R.id.mainActivity, cof);
                     ft.addToBackStack(null);
                     ft.commit();
 

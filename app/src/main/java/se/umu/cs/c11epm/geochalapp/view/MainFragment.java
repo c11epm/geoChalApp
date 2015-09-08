@@ -70,6 +70,8 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 activity.logout();
                 activity.changeView(MainActivity.views.LOGIN, MainActivity.list.NONE);
+                activity.getSupportActionBar().setTitle(R.string.app_name);
+
             }
         });
 

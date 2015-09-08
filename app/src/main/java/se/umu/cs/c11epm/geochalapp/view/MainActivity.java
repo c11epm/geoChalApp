@@ -68,9 +68,14 @@ public class MainActivity extends AppCompatActivity {
                 f = new CreateChallengeFragment();
             }
 
-            ft.replace(R.id.mainActivity,f);
-            ft.addToBackStack(null);
-
+            //Add to back stack if not login fragment is to be shown.
+            if(!view.equals(views.LOGIN)) {
+                ft.addToBackStack(null);
+            } else {
+                //Empty fragments
+                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+            ft.replace(R.id.mainActivity, f);
             ft.commit();
         }
     }
