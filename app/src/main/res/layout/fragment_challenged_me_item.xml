@@ -11,14 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/challenge_item_challenged_by"
-        android:text="Challenged by:"/>
+        android:text="Challenged by:"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Token:"
         android:id="@+id/challenge_item_token"
-        android:layout_below="@+id/challenge_item_challenged_by" />
+        android:layout_below="@+id/challenge_item_challenged_by"
+        android:textStyle="bold" />
 
     <Button
         android:layout_width="wrap_content"
@@ -34,14 +36,16 @@
         android:layout_height="wrap_content"
         android:text="Challenge longitude:"
         android:id="@+id/challenge_long"
-        android:layout_below="@+id/challenge_item_token" />
+        android:layout_below="@+id/challenge_item_token"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Challenge latitude:"
         android:id="@+id/challenge_lat"
-        android:layout_below="@+id/challenge_long" />
+        android:layout_below="@+id/challenge_long"
+        android:textStyle="bold" />
 
     <Button
         android:layout_width="wrap_content"
@@ -57,14 +61,16 @@
         android:layout_height="wrap_content"
         android:text="My longitude:"
         android:id="@+id/my_long"
-        android:layout_below="@+id/challenge_lat" />
+        android:layout_below="@+id/challenge_lat"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="My latitude:"
         android:id="@+id/my_lat"
-        android:layout_below="@+id/my_long" />
+        android:layout_below="@+id/my_long"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
@@ -73,5 +79,6 @@
         android:id="@+id/challenge_me_distance"
         android:layout_below="@+id/my_lat"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
 </RelativeLayout>

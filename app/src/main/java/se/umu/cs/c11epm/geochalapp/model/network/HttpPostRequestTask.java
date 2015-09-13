@@ -21,7 +21,8 @@ import java.net.URLEncoder;
 
 /**
  * Created by emil on 2015-08-23.
- * Params[0] = json with new user content.
+ * Make sure to implement the onPostExecution when this class is created to be able to access
+ * the GUI object in order to be able to update the GUI properly.
  */
 public class HttpPostRequestTask extends BaseTask {
 
@@ -29,7 +30,7 @@ public class HttpPostRequestTask extends BaseTask {
     }
 
     /**
-     *
+     * USAGE: To send HTTP POST request with a URI and a body and read a JSON response.
      * @param params [0] holds the URI to connect to. [1] holds the JSON body to send.
      * @return JSON response
      */

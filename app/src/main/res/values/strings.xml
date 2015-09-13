@@ -12,6 +12,12 @@
     <string name="create_challenge">Create challenge</string>
     <string name="created_challenges">Challenges created by me</string>
     <string name="challenged_list">My challenges</string>
+    <string name="points">Points</string>
+    <string name="friends">Friends</string>
+    <string name="about">About</string>
+    <string name="userinfo">User info</string>
+    <string name="error_server">Could not get data from server</string>
+    <string name="status">Status: </string>
 
     <!-- Login fragment-->
     <string name="login_welcome">Welcome to GeoChal</string>
@@ -39,4 +45,11 @@
     <string name="challenge_me_lat">My latitude:</string>
 
     <string name="update_challenge">Update challenge info</string>
+
+    <!-- Info string -->
+    <string name="about_info">GeoChal - A GPS based outdoor game of challenge your friends and coworkers to physically go to a place.
+    \n\nGeoChal hopes that you are going to have a fun and active time with your friends and coworkers.
+    </string>
+    <string name="add_friend">Add friend</string>
+
 </resources>

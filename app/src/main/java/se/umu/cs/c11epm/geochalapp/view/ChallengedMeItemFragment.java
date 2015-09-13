@@ -92,7 +92,7 @@ public class ChallengedMeItemFragment extends Fragment {
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String path = "/challenge/location/" + challenge.getID();
+                String path = "/challenge/" + challenge.getID();
                 if(!activity.getGPS().gotPosition()) {
                     Toast.makeText(activity, getString(R.string.location_error), Toast.LENGTH_SHORT).show();
                     return;

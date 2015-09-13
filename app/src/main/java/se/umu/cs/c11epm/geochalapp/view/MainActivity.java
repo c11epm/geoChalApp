@@ -5,7 +5,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public enum views {
-        LOGIN, MAIN, CHALLENGELIST, CREATECHALLENGE
+        LOGIN, MAIN, CHALLENGELIST, CREATECHALLENGE, USERINFO, ABOUT
     }
     public enum list {
         ME, OTHER, NONE
@@ -66,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
 
             } else if(view.equals(views.CREATECHALLENGE)) {
                 f = new CreateChallengeFragment();
+            } else if(view.equals(views.USERINFO)) {
+                f = new UserInfoFragment();
+            } else if(view.equals(views.ABOUT)) {
+                f = new AboutFragment();
             }
 
             //Add to back stack if not login fragment is to be shown.
@@ -97,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
             return R.id.challengeListFragment;
         } else if (view.equals(views.CREATECHALLENGE)) {
             return R.id.createChallengeFragment;
+        } else if(view.equals(views.USERINFO)) {
+            return R.id.userViewFragment;
+        } else if(view.equals(views.ABOUT)) {
+            return R.id.aboutFragment;
         } else {
             throw new RuntimeException("This should not be possible");
         }
@@ -125,8 +132,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         stopGPS();
         super.onPause();
-
-        Log.d("MAIN", "ON PAUSE!!!!!");
     }
 
 
@@ -135,8 +140,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         startGPS();
         super.onResume();
-
-        Log.d("MAIN", "ON RESUME!!!!");
     }
 
     protected Location getPosition() {
@@ -177,7 +180,11 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.menu_user) {
+            changeView(views.USERINFO, list.NONE);
+            return true;
+        } else if(id == R.id.menu_about) {
+            changeView(views.ABOUT, list.NONE);
             return true;
         }
 

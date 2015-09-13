@@ -14,7 +14,8 @@
         android:id="@+id/challenge_item_user"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/challenge_item_distance"
-        android:layout_alignStart="@+id/challenge_item_distance" />
+        android:layout_alignStart="@+id/challenge_item_distance"
+        android:textStyle="bold" />
 
     <ImageView
         android:layout_width="40dp"
@@ -33,6 +34,7 @@
         android:id="@+id/challenge_item_distance"
         android:layout_below="@+id/challenge_item_user"
         android:layout_toRightOf="@+id/challenge_item_icon"
-        android:layout_toEndOf="@+id/challenge_item_icon" />
+        android:layout_toEndOf="@+id/challenge_item_icon"
+        android:textStyle="bold" />
 
 </RelativeLayout>

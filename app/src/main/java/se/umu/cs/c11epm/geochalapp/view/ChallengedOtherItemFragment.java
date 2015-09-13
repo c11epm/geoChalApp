@@ -101,7 +101,7 @@ public class ChallengedOtherItemFragment extends Fragment {
                             e.printStackTrace();
                         }
                     }
-                }.execute("/challenge/location/" + challenge.getID());
+                }.execute("/challenge/" + challenge.getID());
 
 
             }

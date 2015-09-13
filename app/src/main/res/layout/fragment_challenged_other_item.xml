@@ -11,28 +11,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/challenge_other_username"
-        android:text="Challenged user:"/>
+        android:text="Challenged user:"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Token:"
         android:id="@+id/challenge_other_token"
-        android:layout_below="@+id/challenge_other_username" />
+        android:layout_below="@+id/challenge_other_username"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Challenge longitude:"
         android:id="@+id/challenge_other_long"
-        android:layout_below="@+id/challenge_other_token" />
+        android:layout_below="@+id/challenge_other_token"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Challenge latitude:"
         android:id="@+id/challenge_other_lat"
-        android:layout_below="@+id/challenge_other_long" />
+        android:layout_below="@+id/challenge_other_long"
+        android:textStyle="bold" />
 
     <Button
         android:layout_width="wrap_content"
@@ -50,7 +54,8 @@
         android:id="@+id/challenge_other_distance"
         android:layout_below="@+id/challenge_other_lat"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
 
     <ImageView
         android:layout_width="40dp"
@@ -60,5 +65,17 @@
         android:layout_alignBottom="@+id/challenge_other_update"
         android:layout_alignRight="@+id/challenge_other_lat"
         android:layout_alignEnd="@+id/challenge_other_lat" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/status"
+        android:id="@+id/status_text"
+        android:layout_alignTop="@+id/challenge_status"
+        android:layout_toLeftOf="@+id/challenge_status"
+        android:layout_toStartOf="@+id/challenge_status"
+        android:layout_alignBottom="@+id/challenge_other_update"
+        android:textAlignment="center"
+        android:textStyle="bold" />
 
 </RelativeLayout>
