@@ -48,6 +48,7 @@ public class ChallengedOtherItemFragment extends Fragment {
         TextView challengeDistance = (TextView) v.findViewById(R.id.challenge_other_distance);
 
         Button updateChallenge = (Button) v.findViewById(R.id.challenge_other_update);
+        Button show = (Button) v.findViewById(R.id.show_map);
 
         final ImageView challengeStatus = (ImageView) v.findViewById(R.id.challenge_status);
 
@@ -79,6 +80,16 @@ public class ChallengedOtherItemFragment extends Fragment {
         }
 
         updateStatusIcon(challengeStatus);
+
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (activity.getGPS().gotPosition()) {
+                    activity.showMap(challenge.getPosition(), activity.getPosition());
+                }
+
+            }
+        });
 
         updateChallenge.setOnClickListener(new View.OnClickListener() {
             @Override

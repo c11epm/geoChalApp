@@ -4,7 +4,7 @@
     tools:context=".MainActivity">
 
     <item android:id="@+id/menu_user" android:title="@string/userinfo"
-        android:orderInCategory="100" app:showAsAction="never" />
+        android:orderInCategory="100" app:showAsAction="withText|ifRoom"/>
     <item android:id="@+id/menu_about" android:title="@string/about"
-        android:orderInCategory="101" app:showAsAction="never"/>
+        android:orderInCategory="101" app:showAsAction="withText|ifRoom"/>
 </menu>

@@ -18,6 +18,7 @@
     <string name="userinfo">User info</string>
     <string name="error_server">Could not get data from server</string>
     <string name="status">Status: </string>
+    <string name="add_friend">Add friend</string>
 
     <!-- Login fragment-->
     <string name="login_welcome">Welcome to GeoChal</string>
@@ -48,8 +49,12 @@
 
     <!-- Info string -->
     <string name="about_info">GeoChal - A GPS based outdoor game of challenge your friends and coworkers to physically go to a place.
-    \n\nGeoChal hopes that you are going to have a fun and active time with your friends and coworkers.
+    \n\nGeoChal hopes that you are going to have a fun and active time with your friends and coworkers.\n\nCreated by Emil Palm, student at Umeå University - Umeå, Sweden
     </string>
-    <string name="add_friend">Add friend</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="show_on_map">Show On Map</string>
+
 
 </resources>

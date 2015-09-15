@@ -1,6 +1,7 @@
 package se.umu.cs.c11epm.geochalapp.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,25 +15,51 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import se.umu.cs.c11epm.geochalapp.R;
+import se.umu.cs.c11epm.geochalapp.model.Position;
 import se.umu.cs.c11epm.geochalapp.model.UserInfo;
 import se.umu.cs.c11epm.geochalapp.model.position.GPSLocator;
 
 public class MainActivity extends AppCompatActivity {
     private LocationListener mLocationListener;
     private LocationManager mLocationManager;
-
+    private Menu menu;
     private UserInfo userInfo;
+    private boolean loggedIn = false;
 
     public void logout() {
         stopGPS();
         userInfo = null;
+        loggedIn = false;
+    }
+
+    public void login() {
+        loggedIn = true;
     }
 
     public enum views {
-        LOGIN, MAIN, CHALLENGELIST, CREATECHALLENGE, USERINFO, ABOUT
+        LOGIN, MAIN, CHALLENGELIST, CREATECHALLENGE, USERINFO, ABOUT, MAP
     }
     public enum list {
         ME, OTHER, NONE
+    }
+
+    protected void hideUserInfo() {
+        MenuItem item = menu.findItem(R.id.menu_user);
+        item.setVisible(false);
+    }
+
+    protected void showUserInfo() {
+        MenuItem item = menu.findItem(R.id.menu_user);
+        item.setVisible(true);
+    }
+
+    public void showMap(Position pos, Location loc) {
+        Intent intent = new Intent(this, MapActivity.class);
+        intent.putExtra("lat", pos.getLatitude());
+        intent.putExtra("lon", pos.getLongitude());
+        intent.putExtra("myLat", loc.getLatitude());
+        intent.putExtra("myLon", loc.getLongitude());
+        startActivity(intent);
     }
 
     public void changeView(views view, list type) {
@@ -74,8 +101,12 @@ public class MainActivity extends AppCompatActivity {
             //Add to back stack if not login fragment is to be shown.
             if(!view.equals(views.LOGIN)) {
                 ft.addToBackStack(null);
+                if(loggedIn) {
+                    showUserInfo();
+                }
             } else {
                 //Empty fragments
+                hideUserInfo();
                 getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
             ft.replace(R.id.mainActivity, f);
@@ -124,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                     .add(R.id.mainActivity, fragment)
                     .commit();
         }
-
         //startGPS();
     }
 
@@ -134,7 +164,13 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
-
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem i = menu.findItem(R.id.menu_user);
+        i.setVisible(false);
+        return true;
+    }
 
     @Override
     protected void onResume() {
@@ -169,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        this.menu = menu;
         return true;
     }
 

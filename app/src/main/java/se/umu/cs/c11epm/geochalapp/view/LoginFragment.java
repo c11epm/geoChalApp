@@ -35,20 +35,12 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        MenuItem user = menu.findItem(R.id.menu_user);
-        user.setVisible(false);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
         activity = (MainActivity) getActivity();
-
         ActionBar ab = activity.getActionBar();
 
         if(ab != null) {
@@ -102,6 +94,7 @@ public class LoginFragment extends Fragment {
                                 if(type.equals(buttonType.LOGIN)) {
                                     String token = jsonObject.get("token").toString();
 
+                                    activity.login();
                                     activity.setUser(new UserInfo(uname, token));
                                     activity.changeView(MainActivity.views.MAIN, MainActivity.list.NONE);
                                 } else {

@@ -54,6 +54,7 @@ public class ChallengedMeItemFragment extends Fragment {
 
         Button finish = (Button) v.findViewById(R.id.finish_challenge);
         Button update = (Button) v.findViewById(R.id.update_my_pos);
+        Button show = (Button) v.findViewById(R.id.show_on_map);
 
         if(challenge.isFinished()) {
             finish.setEnabled(false);
@@ -88,6 +89,16 @@ public class ChallengedMeItemFragment extends Fragment {
         } else {
             challengeDistance.setText(getString(R.string.location_error));
         }
+
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(activity.getGPS().gotPosition()) {
+                    activity.showMap(challenge.getPosition(), activity.getPosition());
+                }
+
+            }
+        });
 
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
