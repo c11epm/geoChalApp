@@ -17,6 +17,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import se.umu.cs.c11epm.geochalapp.R;
 import se.umu.cs.c11epm.geochalapp.model.Position;
 
+/**
+ * MapActivity
+ * Displays the map with challenge position and phone position
+ */
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private Position pos;
@@ -40,6 +44,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
+    /**
+     * Collect the positions from intent
+     */
     private void getPos() {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -53,6 +60,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
+    /**
+     * When map is ready, display the positions
+     * @param googleMap
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);

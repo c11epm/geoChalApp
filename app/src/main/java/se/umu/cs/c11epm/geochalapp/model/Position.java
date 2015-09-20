@@ -1,6 +1,8 @@
 package se.umu.cs.c11epm.geochalapp.model;
 
 /**
+ * Position
+ * Data class for a position in longitude - latitude format.
  * Created by emil on 2015-09-03.
  */
 public class Position {

@@ -25,6 +25,12 @@ import se.umu.cs.c11epm.geochalapp.model.Position;
 import se.umu.cs.c11epm.geochalapp.model.network.HttpPostRequestTask;
 
 /**
+ * ChallengedMeItemFragment
+ *
+ * Presents a challenge where the logged in user is challenged.
+ * Contains the buttons to finish the challenge, show challenge position on map
+ * and force update the position from GPS.
+ *
  * A simple {@link Fragment} subclass.
  */
 public class ChallengedMeItemFragment extends Fragment {
@@ -45,7 +51,6 @@ public class ChallengedMeItemFragment extends Fragment {
         activity = (MainActivity) getActivity();
 
         TextView challengedBy = (TextView) v.findViewById(R.id.challenge_item_challenged_by);
-        TextView token = (TextView) v.findViewById(R.id.challenge_item_token);
         TextView chalLong = (TextView) v.findViewById(R.id.challenge_long);
         TextView chalLat = (TextView) v.findViewById(R.id.challenge_lat);
         final TextView challengeDistance = (TextView) v.findViewById(R.id.challenge_me_distance);
@@ -61,7 +66,6 @@ public class ChallengedMeItemFragment extends Fragment {
         }
 
         challengedBy.setText(getString(R.string.challenge_item_challenged) + " " + challenge.getCreatorUser());
-        token.setText(getString(R.string.challenge_item_id) + " " + challenge.getID());
         chalLong.setText(getString(R.string.challenge_item_long) + " " + challenge.getLongitude());
         chalLat.setText(getString(R.string.challenge_item_lat) + " " + challenge.getLatitude());
 
@@ -87,7 +91,7 @@ public class ChallengedMeItemFragment extends Fragment {
             }
             challengeDistance.setText(getString(R.string.challenge_item_distance) + " " + length);
         } else {
-            challengeDistance.setText(getString(R.string.location_error));
+            challengeDistance.setText(getString(R.string.no_position));
         }
 
         show.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +99,8 @@ public class ChallengedMeItemFragment extends Fragment {
             public void onClick(View v) {
                 if(activity.getGPS().gotPosition()) {
                     activity.showMap(challenge.getPosition(), activity.getPosition());
+                } else {
+                    Toast.makeText(activity, R.string.location_error, Toast.LENGTH_SHORT).show();
                 }
 
             }

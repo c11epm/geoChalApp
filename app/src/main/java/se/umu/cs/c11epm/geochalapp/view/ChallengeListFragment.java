@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -23,7 +22,6 @@ import org.json.JSONObject;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 
 import se.umu.cs.c11epm.geochalapp.R;
 import se.umu.cs.c11epm.geochalapp.model.Challenge;
@@ -31,6 +29,13 @@ import se.umu.cs.c11epm.geochalapp.model.Haversine;
 import se.umu.cs.c11epm.geochalapp.model.Position;
 import se.umu.cs.c11epm.geochalapp.model.network.HttpGetRequestTask;
 
+/**
+ * ChallengeListFragment
+ * Displays a list of challenges, both created by the logged in user
+ * as well as the logged in users challenges.
+ *
+ * A simple {@link Fragment} subclass.
+ */
 public class ChallengeListFragment extends Fragment {
 
     private MainActivity activity;
@@ -100,6 +105,9 @@ public class ChallengeListFragment extends Fragment {
         return v;
     }
 
+    /**
+     * Fills the list of challenges depending of the sort of challenges to display.
+     */
     private void fillList() {
         String path = type.equals(MainActivity.list.ME) ?
                 "/challenge/challenged/" + activity.getUserInfo().getUsername() :
@@ -146,6 +154,9 @@ public class ChallengeListFragment extends Fragment {
         }.execute(path);
     }
 
+    /**
+     * Private adapter class for challenges for the logged in user.
+     */
     private class ChallengeMeAdapter extends ArrayAdapter<Challenge> {
 
         public ChallengeMeAdapter(Context context, int resource, List<Challenge> challenges) {
@@ -185,7 +196,7 @@ public class ChallengeListFragment extends Fragment {
                 }
                 distance.setText(getString(R.string.challenge_item_distance) + " " + length);
             } else {
-                distance.setText(getString(R.string.location_error));
+                distance.setText(getString(R.string.no_position));
             }
 
 
@@ -193,6 +204,9 @@ public class ChallengeListFragment extends Fragment {
         }
     }
 
+    /**
+     * Private adapter class for challenges created by the logged in user.
+     */
     private class ChallengeOtherAdapter extends ArrayAdapter<Challenge> {
 
         public ChallengeOtherAdapter(Context context, int resource, List<Challenge> challenges) {

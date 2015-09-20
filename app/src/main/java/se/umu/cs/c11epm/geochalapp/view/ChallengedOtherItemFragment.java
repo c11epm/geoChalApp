@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +22,10 @@ import se.umu.cs.c11epm.geochalapp.model.Position;
 import se.umu.cs.c11epm.geochalapp.model.network.HttpGetRequestTask;
 
 /**
+ * ChallengedOtherItemFragment
+ * Presents a challenge where the logged in user challenged another user.
+ * Contains buttons to show challenge location and update the info about the challenge.
+ *
  * A simple {@link Fragment} subclass.
  */
 public class ChallengedOtherItemFragment extends Fragment {
@@ -42,7 +47,6 @@ public class ChallengedOtherItemFragment extends Fragment {
         activity = (MainActivity) getActivity();
 
         final TextView challengedUser = (TextView) v.findViewById(R.id.challenge_other_username);
-        TextView challengeToken = (TextView) v.findViewById(R.id.challenge_other_token);
         TextView challengeLat = (TextView) v.findViewById(R.id.challenge_other_lat);
         TextView challengeLong = (TextView) v.findViewById(R.id.challenge_other_long);
         TextView challengeDistance = (TextView) v.findViewById(R.id.challenge_other_distance);
@@ -53,7 +57,6 @@ public class ChallengedOtherItemFragment extends Fragment {
         final ImageView challengeStatus = (ImageView) v.findViewById(R.id.challenge_status);
 
         challengedUser.setText(getString(R.string.challenge_item_challenged_other) + " " + challenge.getChallengedUser());
-        challengeToken.setText(getString(R.string.challenge_item_id) + " " + challenge.getID());
         challengeLat.setText(getString(R.string.challenge_item_lat) + " " + challenge.getLatitude());
         challengeLong.setText(getString(R.string.challenge_item_long) + " " + challenge.getLongitude());
 
@@ -76,7 +79,7 @@ public class ChallengedOtherItemFragment extends Fragment {
             }
             challengeDistance.setText(getString(R.string.challenge_item_distance) + " " + length);
         } else {
-            challengeDistance.setText(getString(R.string.location_error));
+            challengeDistance.setText(getString(R.string.no_position));
         }
 
         updateStatusIcon(challengeStatus);
@@ -86,6 +89,8 @@ public class ChallengedOtherItemFragment extends Fragment {
             public void onClick(View v) {
                 if (activity.getGPS().gotPosition()) {
                     activity.showMap(challenge.getPosition(), activity.getPosition());
+                }else {
+                    Toast.makeText(activity, R.string.location_error, Toast.LENGTH_SHORT).show();
                 }
 
             }

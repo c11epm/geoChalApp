@@ -5,6 +5,10 @@ import android.location.LocationListener;
 import android.os.Bundle;
 
 /**
+ * GPSLocator
+ * Implements the LocationListener used to get the GPS position.
+ * Also keeps track of whether or not a valid GPS-position is retrieved.
+ *
  * Created by emil on 2015-08-22.
  */
 public class GPSLocator implements LocationListener {
@@ -17,6 +21,10 @@ public class GPSLocator implements LocationListener {
         return validPosition;
     }
 
+    /**
+     * Returns the GPS position object if retrieved, else null.
+     * @return location object
+     */
     public Location getPosition() {
         if(validPosition)
             return lastPos;
@@ -24,6 +32,10 @@ public class GPSLocator implements LocationListener {
             return null;
     }
 
+    /**
+     * Called by the Location service, updates the GPS position and sets validPosition
+     * @param location
+     */
     @Override
     public void onLocationChanged(Location location) {
         validPosition = true;

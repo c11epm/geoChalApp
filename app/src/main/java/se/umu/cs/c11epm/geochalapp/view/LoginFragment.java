@@ -60,6 +60,14 @@ public class LoginFragment extends Fragment {
         return v;
     }
 
+    /**
+     * Sets up the button listeners depending on the function, the buttons functions differs only
+     * in the HTTP request
+     * @param username username to login / create
+     * @param password the corresponding password
+     * @param mCreateUserButton the button object
+     * @param type login or create type
+     */
     private void setupButtonListener(final EditText username, final EditText password, Button mCreateUserButton, final buttonType type) {
         mCreateUserButton.setOnClickListener(new View.OnClickListener() {
             @Override

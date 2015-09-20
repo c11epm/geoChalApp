@@ -1,6 +1,9 @@
 package se.umu.cs.c11epm.geochalapp.model;
 
 /**
+ * UserInfo
+ * Data class that holds the information about the logged in user.
+ *
  * Created by emil on 2015-08-31.
  */
 public class UserInfo {

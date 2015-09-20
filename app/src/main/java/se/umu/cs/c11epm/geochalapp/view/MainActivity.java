@@ -19,6 +19,11 @@ import se.umu.cs.c11epm.geochalapp.model.Position;
 import se.umu.cs.c11epm.geochalapp.model.UserInfo;
 import se.umu.cs.c11epm.geochalapp.model.position.GPSLocator;
 
+/**
+ * MainActivity
+ * The main activity of the application. Holds a log of support methods to
+ * steer the flow of the application.
+ */
 public class MainActivity extends AppCompatActivity {
     private LocationListener mLocationListener;
     private LocationManager mLocationManager;
@@ -26,33 +31,57 @@ public class MainActivity extends AppCompatActivity {
     private UserInfo userInfo;
     private boolean loggedIn = false;
 
+    /**
+     * Runs at logout, stops gps and resets attributes.
+     */
     public void logout() {
         stopGPS();
         userInfo = null;
         loggedIn = false;
     }
 
+    /**
+     * Runs at login and sets login attribute
+     */
     public void login() {
         loggedIn = true;
     }
 
+    /**
+     * Enum for different views.
+     */
     public enum views {
         LOGIN, MAIN, CHALLENGELIST, CREATECHALLENGE, USERINFO, ABOUT, MAP
     }
+
+    /**
+     * Enum for challenge list type
+     */
     public enum list {
         ME, OTHER, NONE
     }
 
+    /**
+     * Hides the user info button in action bar.
+     */
     protected void hideUserInfo() {
         MenuItem item = menu.findItem(R.id.menu_user);
         item.setVisible(false);
     }
 
+    /**
+     * Displays the user info button in action bar.
+     */
     protected void showUserInfo() {
         MenuItem item = menu.findItem(R.id.menu_user);
         item.setVisible(true);
     }
 
+    /**
+     * Show the map.
+     * @param pos challenge position
+     * @param loc phone location
+     */
     public void showMap(Position pos, Location loc) {
         Intent intent = new Intent(this, MapActivity.class);
         intent.putExtra("lat", pos.getLatitude());
@@ -62,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Changes the view in the application. Replaces the fragments and adds them in the back-stack.
+     * @param view view type
+     * @param type list type
+     */
     public void changeView(views view, list type) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         int id = getID(view);
@@ -122,6 +156,11 @@ public class MainActivity extends AppCompatActivity {
         return userInfo;
     }
 
+    /**
+     * Gets the R.id for the different fragments.
+     * @param view view type
+     * @return R.id
+     */
     private int getID(views view) {
         if(view.equals(views.LOGIN)) {
             return R.id.loginFragment;
@@ -141,6 +180,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Creates and displays the login fragment
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,14 +221,25 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    /**
+     * Get position from GPSLocator
+     * @return
+     */
     protected Location getPosition() {
         return ((GPSLocator)mLocationListener).getPosition();
     }
 
+    /**
+     * Get GPSLocator object
+     * @return
+     */
     protected GPSLocator getGPS() {
         return (GPSLocator) mLocationListener;
     }
 
+    /**
+     * Starts the GPS listener
+     */
     protected void startGPS() {
         mLocationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
@@ -193,6 +247,9 @@ public class MainActivity extends AppCompatActivity {
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 2, mLocationListener);
     }
 
+    /**
+     * Removes the GPS listener
+     */
     protected void stopGPS() {
         if(mLocationManager != null) {
             mLocationManager.removeUpdates(mLocationListener);
@@ -227,8 +284,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
     private Fragment createFragment() {
         return new LoginFragment();

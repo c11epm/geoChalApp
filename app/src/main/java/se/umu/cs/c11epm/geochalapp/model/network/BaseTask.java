@@ -12,6 +12,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
+ * BaseTask
+ * Abstract class that holds methods that will be used by all tasks,
+ * such as getting the response and make a JSON object from a string.
  * Created by emil on 2015-08-22.
  */
 public abstract class BaseTask extends AsyncTask<String, Void, JSONObject> {
@@ -27,8 +30,7 @@ public abstract class BaseTask extends AsyncTask<String, Void, JSONObject> {
         }
 
         is.close();
-        String toReturn = builder.toString();
-        return toReturn;
+        return builder.toString();
 
     }
 

@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 import se.umu.cs.c11epm.geochalapp.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * AboutFragment
+ *
+ * Simple fragment that only presents the about information of the app.
+ *
+ * Created by emil on 2015-09-11.
  */
 public class AboutFragment extends Fragment {
 

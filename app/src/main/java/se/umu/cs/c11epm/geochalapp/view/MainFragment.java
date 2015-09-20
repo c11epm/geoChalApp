@@ -15,6 +15,11 @@ import android.widget.Button;
 import se.umu.cs.c11epm.geochalapp.R;
 import se.umu.cs.c11epm.geochalapp.model.UserInfo;
 
+/**
+ * MainFragment
+ * Displays the main menu of the application. When logged in the user will
+ * see this view.
+ */
 public class MainFragment extends Fragment {
 
     private UserInfo userInfo;

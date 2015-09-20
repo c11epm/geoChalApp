@@ -3,6 +3,9 @@ package se.umu.cs.c11epm.geochalapp.model;
 import java.util.UUID;
 
 /**
+ * Challenge
+ * Data class that holds data about a challenge. Who challenged who, id, status and position.
+ *
  * Created by emil on 2015-07-15.
  */
 public class Challenge {
@@ -39,6 +42,10 @@ public class Challenge {
 
     public Challenge() {}
 
+    /**
+     * Gets the position object of a challenge.
+     * @return the position
+     */
     public Position getPosition() {
         Position pos = new Position();
         pos.setLatitude(latitude);

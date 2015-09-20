@@ -18,6 +18,10 @@ import org.json.JSONObject;
 import se.umu.cs.c11epm.geochalapp.R;
 import se.umu.cs.c11epm.geochalapp.model.network.HttpPostRequestTask;
 
+/**
+ * CreateChallengeFragment
+ * Displays the create challenge view.
+ */
 public class CreateChallengeFragment extends Fragment {
     private MainActivity activity;
 
@@ -36,6 +40,10 @@ public class CreateChallengeFragment extends Fragment {
         final EditText challengeUser = (EditText) v.findViewById(R.id.challengeUser);
 
         Button createChallenge = (Button) v.findViewById(R.id.mainCreateChallengeButton);
+
+        /*
+         * Button listener for creating challenge with POST request.
+         */
         createChallenge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

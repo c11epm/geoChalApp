@@ -26,6 +26,10 @@ import se.umu.cs.c11epm.geochalapp.model.network.HttpPostRequestTask;
 
 
 /**
+ * UserInfoFrament
+ *
+ * Displays the user info. With data such as name, points and friends.
+ *
  * A simple {@link Fragment} subclass.
  */
 public class UserInfoFragment extends Fragment {
@@ -52,6 +56,7 @@ public class UserInfoFragment extends Fragment {
         final TextView friends = (TextView) v.findViewById(R.id.user_view_friends);
         Button addFriend = (Button) v.findViewById(R.id.add_friend);
 
+        //Collect user info
         new HttpGetRequestTask() {
             @Override
             protected void onPostExecute(JSONObject jsonObject) {
@@ -75,6 +80,7 @@ public class UserInfoFragment extends Fragment {
             }
         }.execute("/user/" + user.getUsername());
 
+        //Add friend listener
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

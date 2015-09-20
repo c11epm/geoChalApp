@@ -19,6 +19,12 @@ import java.net.URL;
 import se.umu.cs.c11epm.geochalapp.view.MainActivity;
 
 /**
+ * HttpGetRequestTask
+ * Implements the HTTP GET request in a ASyncTask to use to contact web server.
+ * Used to contact the GeoChal web service.
+ *
+ * The doPostExecute method needs to be implemented where the class is used to get access to
+ * GUI object and other model object to set the collected data.
  * Created by emil on 2015-08-23.
  */
 public class HttpGetRequestTask extends BaseTask {

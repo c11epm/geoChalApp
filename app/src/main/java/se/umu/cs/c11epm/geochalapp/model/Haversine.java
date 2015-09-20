@@ -1,6 +1,10 @@
 package se.umu.cs.c11epm.geochalapp.model;
 
 /**
+ * Haversine function to determine the distance between two GPS positions.
+ * Haversine function from: http://rosettacode.org/wiki/Haversine_formula#Java
+ * rewritten to adapt to the needs of geoChal application.
+ *
  * Created by emil on 2015-09-03.
  */
 public class Haversine {

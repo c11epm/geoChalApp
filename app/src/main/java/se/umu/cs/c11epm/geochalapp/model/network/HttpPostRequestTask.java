@@ -20,9 +20,13 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 /**
+ *  HttpPostRequestTask
+ *  Implements the HTTP POST request to web servers. Used to contact the GeoChal web service.
+ *
+ * The doPostExecute method needs to be implemented where the class is used to get access to
+ * GUI object and other model object to set the collected data.
+ *
  * Created by emil on 2015-08-23.
- * Make sure to implement the onPostExecution when this class is created to be able to access
- * the GUI object in order to be able to update the GUI properly.
  */
 public class HttpPostRequestTask extends BaseTask {
 
